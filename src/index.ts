@@ -1,4 +1,4 @@
-import { NodeSSH, Config } from 'node-ssh';
+import { NodeSSH, Config } from "node-ssh";
 
 const ERROR_MESSAGES = {
     missingRequiredParam: (param: string) =>
@@ -29,10 +29,6 @@ class WebpackScpPlugin {
     }
 
     private validateOptions() {
-        if (!this.srcPath) {
-            throw new Error(ERROR_MESSAGES.missingRequiredParam("srcPath"));
-        }
-
         if (!this.destPath) {
             throw new Error(ERROR_MESSAGES.missingRequiredParam("destPath"));
         }
@@ -44,7 +40,7 @@ class WebpackScpPlugin {
 
     private async getConnection(): Promise<NodeSSH> {
         if (this.sshConnection) {
-            return new Promise((res) => res(this.sshConnection))
+            return new Promise((res) => res(this.sshConnection));
         } else {
             const ssh = new NodeSSH();
             await ssh.connect(this.connect);
@@ -54,7 +50,7 @@ class WebpackScpPlugin {
     }
 
     private closeConnection(): void {
-        if(this.sshConnection) {
+        if (this.sshConnection) {
             this.sshConnection.dispose();
             this.sshConnection = null;
         }
@@ -72,12 +68,11 @@ class WebpackScpPlugin {
     public apply(compiler: any) {
         compiler.hooks.afterEmit.tapPromise(
             "WebpackScpPlugin",
-            async (compilation) => { 
+            async (compilation) => {
                 try {
-                    // this.createReleaseDirectory();
+                    console.log(`Upload assets to ${this.connect.host}.`);
                     const { outputPath } = compiler;
                     await this.uploadSourceMap(outputPath);
-                    console.log('upload complete');
                 } catch (err) {
                     err.message = `WebpackScpPlugin: ${err.message}`;
                     console.error(err.message);
