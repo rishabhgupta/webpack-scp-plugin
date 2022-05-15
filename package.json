@@ -1,0 +1,54 @@
+{
+    "name": "webpack-scp-plugin",
+    "version": "0.0.1",
+    "description": "Webpack Plugin to copy assets to remote machine using scp",
+    "keywords": [
+        "rishabh",
+        "logrocket",
+        "webpack",
+        "plugin"
+    ],
+    "author": "rishabhgupta <rishabhgupta@msn.com>",
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "types": "./lib/index.d.ts",
+    "directories": {
+        "lib": "lib",
+        "test": "__tests__"
+    },
+    "files": [
+        "lib"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "prebuild": "rimraf ./build",
+        "build": "npx typedoc",
+        "lint": "eslint . --ext .ts",
+        "upload": "node ../../scripts/s3upload.js core",
+        "prelib": "rimraf ./lib",
+        "lib": "tsc --declaration",
+        "ts-check": "tsc --noEmit",
+        "format:check": "prettier --check \"./src/**/*.{ts,tsx,scss}\"",
+        "format": "prettier --write \"./src/**/*.{ts,tsx,scss}\"",
+        "release": "standard-version"
+    },
+    "peerDependencies": {
+        "webpack": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.23",
+        "@typescript-eslint/eslint-plugin": "^5.19.0",
+        "@typescript-eslint/parser": "^5.19.0",
+        "eslint": "^7.6.0",
+        "prettier": "2.0.5",
+        "rimraf": "^2.6.3",
+        "standard-version": "^9.3.2",
+        "typedoc": "^0.17.1",
+        "typescript": "^3.8.3"
+    },
+    "dependencies": {
+        "node-ssh": "^12.0.4"
+    }
+}

@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [dev, master, "feat/**"]
+  push:
+    branches: [dev, master]
+
+jobs:
+  lint:
+    env:
+      CI: true
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use NodeJS Version 12
+        uses: actions/setup-node@v1
+        with:
+          always-auth: true
+          node-version: "12.x"
+          registry-url: https://registry.npmjs.org
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-cache-${{ hashFiles('**/package-lock.json')}}
+          restore-keys: |
+            ${{ runner.os }}-node-cache-
+      - run: npm ci
+      - name: Prettier
+        run: npm run format:check
+      - name: lint
+        run: npm run lint
+  build:
+    env:
+      CI: true
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use NodeJS Version 12
+        uses: actions/setup-node@v1
+        with:
+          always-auth: true
+          node-version: "12.x"
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run build

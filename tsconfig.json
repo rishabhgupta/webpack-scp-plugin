@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": false,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "module": "CommonJS",
+        "target": "ES2016",
+        "declaration": false,
+        "skipLibCheck": true,
+        "jsx": "react",
+        "downlevelIteration": true,
+        "noImplicitAny": false,
+        "outDir": "lib"
+    },
+    "include": [
+        "./src"
+    ],
+    "exclude": [
+        "node_modules", 
+        "dist", 
+        "**/*.test.ts", 
+        "src/**/*.test.tsx",
+        "**/__test__/**"
+    ],
+    "typedocOptions": {
+        "out": "./docs",
+    }
+}
