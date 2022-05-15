@@ -1,12 +1,13 @@
 {
     "name": "webpack-scp-plugin",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Webpack Plugin to copy assets to remote machine using scp",
     "keywords": [
         "rishabh",
-        "logrocket",
+        "scp",
         "webpack",
-        "plugin"
+        "plugin",
+        "copy"
     ],
     "author": "rishabhgupta <rishabhgupta@msn.com>",
     "license": "MIT",
