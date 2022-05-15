@@ -29,10 +29,6 @@ class WebpackScpPlugin {
     }
 
     private validateOptions() {
-        if (!this.srcPath) {
-            throw new Error(ERROR_MESSAGES.missingRequiredParam("srcPath"));
-        }
-
         if (!this.destPath) {
             throw new Error(ERROR_MESSAGES.missingRequiredParam("destPath"));
         }
@@ -74,10 +70,9 @@ class WebpackScpPlugin {
             "WebpackScpPlugin",
             async (compilation) => { 
                 try {
-                    // this.createReleaseDirectory();
+                    console.log(`Upload assets to ${this.connect.host}.`);
                     const { outputPath } = compiler;
                     await this.uploadSourceMap(outputPath);
-                    console.log('upload complete');
                 } catch (err) {
                     err.message = `WebpackScpPlugin: ${err.message}`;
                     console.error(err.message);
